@@ -12,4 +12,5 @@ VideoCut 通过基于OpenAI开源的大语言模型[Whisper](git@github.com:open
 
 ## References
 * [Robust Speech Recognition via Large-Scale Weak Supervision](https://arxiv.org/abs/2212.04356)
+* [Attention Is All You Need](https://arxiv.org/abs/1706.03762v7)
 
