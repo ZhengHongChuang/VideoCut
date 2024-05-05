@@ -4,8 +4,8 @@ VideoCut 通过基于OpenAI开源的大语言模型[Whisper](git@github.com:open
 ![模型](imgs/image.png)
 ## 工作
 
-- [ ] 通过ffmpeg对视频流进行读取
-- [ ] 通过Whisper为视频生成字幕 (md格式或str格式)
+- [x] 通过ffmpeg对视频流进行读取
+- [x] 通过Whisper为视频生成字幕 (md格式或str格式)
 - [ ] 通过字幕生成形成剪辑后视频
 
 

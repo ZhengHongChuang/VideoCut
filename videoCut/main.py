@@ -47,34 +47,34 @@ def main():
     )
     parser.add_argument(
         "--force",
-        help="强制写入",
+        help="强制写入md文件",
         action="store_true",
     )
     parser.add_argument(
         "--vad", 
         action="store_true",
-        help="是否使用VAD"
+        help="使用VAD检测声音信号"
     )
     parser.add_argument(
         "-l",
         "--lang" ,
         choices=get_args(LANG),
         default="zh",
-        help="语言"
+        help="选择输出的语言"
     )
     parser.add_argument(
         "-p",
         "--prompt" ,
         type=str,
         default="",
-        help="添加提示词"
+        help="为模型添加提示词"
     )
     parser.add_argument(
         "-e",
         "--encoding" ,
         type=str,
         default="utf-8",
-        help="选择编码格式"
+        help="选择输出文件的编码格式"
     )
 
 
@@ -82,4 +82,3 @@ def main():
     if args.transcribe:
         from transcribe import Transcribe
         Transcribe(args).run()
-        # Transcribe(args).run()

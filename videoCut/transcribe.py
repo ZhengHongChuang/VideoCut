@@ -51,20 +51,13 @@ class Transcribe:
         md.add_video(os.path.basename(audio_fn))
         md.add(
             f"\n字幕生成来自 [{os.path.basename(srt_fn)}]({os.path.basename(srt_fn)})."
-            "标记下面的字幕段用于生成剪辑后的视频！！\n\n"
+            "标记下面的字幕段用于生成视频！！\n\n"
         )
         for src in subs:
             sec = src.start.seconds
             pre = f"[{src.index},{sec //60:02d}:{sec%60:02d}]"
             md.add_task(False,f"{pre:11} {src.content.strip()}")
-        md.write()
-
-
-
-
-
-
-            
+        md.write()      
     def _detect_voice_activity(self, audio) -> List[SPEECH_ARRAY_INDEX]:
         if self.vad is False:
             return [{"start":0,"end":len(audio)}]

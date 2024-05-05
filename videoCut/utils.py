@@ -68,7 +68,7 @@ class MD:
         with open(self.filename,"wb") as f:
             f.write("\n".join(self.lines).encode(self.encding,"replace"))
     def add_task(self,mark,content):
-        self.add(f'- [{"x" if mark else ""}] {content.strip()}')
+        self.add(f'- [{"x" if mark else " "}] {content.strip()}')
     def add_done_editing(self,mark):
         self.add_task(mark,self.EDIT_MAKR)
     def add_video(self, video_fn):
