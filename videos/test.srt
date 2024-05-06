@@ -1,12 +1,4 @@
 1
-00:00:00,000 --> 00:00:04,300
-我的名字是VideoCat,这是一条用于测试的视频
-
-2
-00:00:04,300 --> 00:00:06,000
-My name is VideoCat
-
-3
-00:00:06,500 --> 00:00:08,500
-This is a video for testing
+00:00:00,000 --> 00:00:08,560
+我的名字是 VideoCut, 这是一条用于测试的视频,My name is VideoCut. This is a video for testing.
 

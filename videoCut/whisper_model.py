@@ -32,6 +32,8 @@ class WhisperModel(AbstractWhisperModel):
     def load(self, 
              model_name:MODEL = "small",
              device: DEVICE = None):
+        # 使用openAi开源的Whisper模型
+        # git@github.com:openai/whisper.git
         import whisper
         self.whisper_model = whisper.load_model(name=model_name,device=device)
     def _transcribe(self, audio, seg, lang, prompt):
@@ -52,7 +54,8 @@ class WhisperModel(AbstractWhisperModel):
         prompt: str,  # 提示
     ):
         res = []  # 存储结果的列表
-        if self.device == "cpu" and len(speech_array_indices) > 1:  # 如果使用 CPU，并且有多个音频段
+        # 如果使用 CPU，并且有多个音频段则启用多线程
+        if self.device == "cpu" and len(speech_array_indices) > 1:  
             from multiprocessing import Pool  # 导入进程池模块
 
             pbar = tqdm(total=len(speech_array_indices))  # 创建一个进度条

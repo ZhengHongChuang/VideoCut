@@ -8,7 +8,9 @@ MODEL = Literal[
     "small", 
     "medium", 
     "large", 
-    "large-v2"]
+    "large-v1",
+    "large-v2",
+    "large-v3"]
 LANG = Literal[
     "zh",
     "en",
