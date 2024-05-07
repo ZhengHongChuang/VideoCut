@@ -1,7 +1,7 @@
 from enum import Enum
 from typing import TypedDict,Literal,Union,get_args
 SPEECH_ARRAY_INDEX = TypedDict("SPEECH_ARRAY_INDEX", {"start": float, "end": float})
-DEVICE = Union[Literal["cpu", "cuda"], None]
+DEVICE = Union[Literal["cpu", "cuda:1"], None]
 MODEL = Literal[
     "tiny", 
     "base", 

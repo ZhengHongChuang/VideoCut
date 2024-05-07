@@ -1,5 +1,6 @@
 import logging
 import os
+import re
 import ffmpeg
 import numpy as np
 def load_audio(file,sr=16000):
@@ -51,7 +52,7 @@ def merge_adjacent_segments(segments,threshold):
 class MD:
     def __init__(self,filename,encoding):
         self.lines = []
-        self.EDIT_MAKR = "<-- 标记字幕保留！！"
+        self.EDIT_DONE_MAKR = "<-- 修改成功后请将其勾选！！"
         self.encding = encoding
         self.filename = filename
         if filename:
@@ -70,14 +71,50 @@ class MD:
     def add_task(self,mark,content):
         self.add(f'- [{"x" if mark else " "}] {content.strip()}')
     def add_done_editing(self,mark):
-        self.add_task(mark,self.EDIT_MAKR)
+        self.add_task(mark,self.EDIT_DONE_MAKR)
     def add_video(self, video_fn):
         ext = os.path.splitext(video_fn)[1][1:]
         self.add(
             f'\n<video controls="true" allowfullscreen="true"> <source src="{video_fn}" type="video/{ext}"> </video>\n'
         )
+    def done_editing(self):
+        for m, t in self.tasks():
+            if m and self.EDIT_DONE_MAKR in t:
+                return True
+        return False
+    def tasks(self):
+        ret = []
+        for l in self.lines:
+            mark, task = self._parse_task_status(l)
+            if mark is not None:
+                ret.append((mark, task))
+        return ret
+    def _parse_task_status(self, line):
+        # return (is_marked, rest) or (None, line) if not a task
+        m = re.match(r"- +\[([ xX])\] +(.*)", line)
+        if not m:
+            return None, line
+        return m.groups()[0].lower() == "x", m.groups()[1]
+
+def is_video(filename):
+    _, ext = os.path.splitext(filename)
+    return ext in [".mp4", ".mov", ".mkv", ".avi", ".flv", ".f4v", ".webm"]
 
 
+def is_audio(filename):
+    _, ext = os.path.splitext(filename)
+    return ext in [".ogg", ".wav", ".mp3", ".flac", ".m4a"]
+def change_ext(filename, new_ext):
+    base, _ = os.path.splitext(filename)
+    if not new_ext.startswith("."):
+        new_ext = "." + new_ext
+    return base + new_ext
 
-
-    
+def add_cut(filename):
+    # Add cut mark to the filename
+    base, ext = os.path.splitext(filename)
+    if base.endswith("_cut"):
+        base = base[:-4] + "_" + base[-4:]
+    else:
+        base += "_cut"
+    return base + ext

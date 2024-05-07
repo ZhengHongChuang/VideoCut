@@ -22,6 +22,7 @@ class Transcribe:
         self.prompt = args.prompt
         self.encoding = args.encoding
 
+
         self.whisper_model = WhisperModel(self.sampling_rate)
         self.whisper_model.load(self.whisper_name,self.device)
         logging.info("Whisper模型加载完成!!!")
@@ -50,7 +51,7 @@ class Transcribe:
         md = MD(md_fn,encoding=self.encoding)
         # 写入提示信息
         md.clear()
-        md.add_done_editing(True)
+        md.add_done_editing(False)
         md.add_video(os.path.basename(audio_fn))
         md.add(
             f"\n字幕生成来自 [{os.path.basename(srt_fn)}]({os.path.basename(srt_fn)})."
@@ -67,7 +68,7 @@ class Transcribe:
         if self.vad is False:
             return [{"start":0,"end":len(audio)}]
         else:
-            # torch.hub._validate_not_a_forked_repo = lambda a, b, c: True
+            torch.hub._validate_not_a_forked_repo = lambda a, b, c: True
             # git@github.com:snakers4/silero-vad.git
             self.vad_model, funcs = torch.hub.load(repo_or_dir="snakers4/silero-vad", model="silero_vad",trust_repo=True)
             self.detect_speech = funcs[0]

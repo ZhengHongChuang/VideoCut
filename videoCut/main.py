@@ -26,7 +26,7 @@ def main():
         "--device",
         type=str,
         default="cpu",
-        choices=["cpu", "cuda"],
+        choices=["cpu", "cuda:1"],
         help="指定cpu或gpu",
     )
     parser.add_argument(
@@ -75,9 +75,26 @@ def main():
         default="utf-8",
         help="选择输出文件的编码格式"
     )
+    parser.add_argument(
+        "-c",
+        "--cut" ,
+        help="生成剪辑后的视频",
+        action="store_true",
+    )
+    parser.add_argument(
+        "-b",
+        "--bitrate" ,
+        type=str,
+        default="10m",
+        help="设置比特率:默认为10m",
+    )
 
 
     args = parser.parse_args()
     if args.transcribe:
         from transcribe import Transcribe
         Transcribe(args).run()
+    else:
+        from cut import Cutter
+        Cutter(args).run()
+
