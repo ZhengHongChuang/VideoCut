@@ -9,7 +9,7 @@ VideoCut 通过基于OpenAI开源的大语言模型[Whisper](git@github.com:open
 
 - [x] 通过ffmpeg对音频流进行读取
 - [x] 通过Whisper为视频生成字幕 (md格式或str格式)
-- [ ] 通过字幕生成形成剪辑后视频
+- [x] 通过字幕生成形成剪辑后视频
 
 ## 3、使用
 
@@ -27,6 +27,21 @@ cd VideoCut
 ```
 pip install -r requirements.txt
 ```
+### 3.4、生成视频字幕文件
+
+```
+python videoCut videos/test1.wav  -t --device cuda:1 -n large-v3 --vad --force
+```
+### 3.5、剪辑视频
+```
+python videoCut videos/test1.wav  videos/test1.md videos/test1.srt -c  --force
+```
+### 3.6 、更多
+
+```
+python videoCut --help
+```
+
 
 ## 4、Requirements
 
@@ -37,6 +52,7 @@ pip install -r requirements.txt
 * srt==3.5.3
 * torch==1.13.1+cu116
 * tqdm==4.66.4
+* moviepy==1.0.3
 
 ## 5、References
 * [Robust Speech Recognition via Large-Scale Weak Supervision](https://arxiv.org/abs/2212.04356)
